@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.25)
 
 # determine whether this is a standalone project or included by other projects
 set (MINIZ_STANDALONE_PROJECT ON)
@@ -16,11 +16,13 @@ else()
   # set(CMAKE_C_VISIBILITY_PRESET hidden)
   # set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
-  if (MSVC)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W3 /Zi /permissive-")
-  else ()
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wshadow -Wformat=2 -Wall -Wno-overlength-strings -pedantic")
-  endif ()
+	if (${MINIZ_STANDALONE_PROJECT})
+	  if (MSVC)
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W3 /Zi /permissive-")
+	  else ()
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wshadow -Wformat=2 -Wall -Wno-overlength-strings -pedantic")
+	  endif ()
+	endif()
 endif()
 
 set(MINIZ_API_VERSION 3)
